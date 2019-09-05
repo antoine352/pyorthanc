@@ -109,3 +109,9 @@ for patient in patient_forest:
     for study in patient.get_studies():
         ...
 ```
+
+
+Acknowledgements
+----------------
+- This work has been funded by the Canadian Foundation for Innovation (Grant number 30889) and by the NSERC Discovery program.
+- This work acknowledges partial support by the CREATE Medical Physics Research Training Network grant of the Natural Sciences and Engineering Research Council (Grant number: 432290).
