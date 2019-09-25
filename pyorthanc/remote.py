@@ -88,7 +88,7 @@ class RemoteModality:
         query_identifier
             Query identifier.
         cmove_data
-            Ex. {'TargetAET': 'modality_name', "Synchronous": False}
+            Ex. {'TargetAet': 'modality_name', "Synchronous": False}
 
         Returns
         -------
@@ -105,7 +105,7 @@ class RemoteModality:
 
         >>> remote_modality.move(
         ...     query_identifier=query_id['ID'],
-        ...     cmove_data={'TargetAET': 'modality'}
+        ...     cmove_data={'TargetAet': 'modality'}
         ... )
 
         """

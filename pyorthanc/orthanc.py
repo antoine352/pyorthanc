@@ -3008,7 +3008,7 @@ class Orthanc:
             **kwargs
         )
 
-    def get_content_of_specified_query_answer(
+    def get_query_content(
             self, query_identifier: str,
             index: str,
             params: Dict = None,
