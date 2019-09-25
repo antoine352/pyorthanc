@@ -94,16 +94,18 @@ orthanc.get_modalities()
 ```python
 from pyorthanc import RemoteModality, Orthanc
 
+orthanc = Orthanc('http://localhost:8042')
+orthanc.setup_credentials('username', 'password')  # If needed
 
-remote_modality = RemoteModality(Orthanc('http://localhost:8042'), 'modality')
-remote_modality.setup_credentials('username', 'password')  # If needed
+remote_modality = RemoteModality(orthanc, 'modality')
 
 # Query (C-Find) on modality
 data = {'Level': 'Study', 'Query': {'PatientID': '*'}}
 query_response = remote_modality.query(data=data)
 
 # Retrieve (C-Move) results of query on a target modality (AET)
-remote_modality.move(query_response['QUERY_ID'], 'target_modality')
+c_move_data = {'TargetAet': 'targeted_modality'}
+remote_modality.move(query_response['QUERY_ID'], c_move_data)
 ```
 
 #### Build a patient tree structure of all patients in Orthanc instance:
