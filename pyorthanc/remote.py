@@ -113,3 +113,45 @@ class RemoteModality:
             query_identifier,
             data=cmove_data
         )
+
+    def get_query_answer_number_of_results(self, query_identifier: str,
+            params: Dict = None,
+            **kwargs) -> list:
+        """Get all content of specified answer of C-Find
+
+            Parameters
+            ----------
+            query_identifier
+                Query identifier.
+            params
+                GET HTTP request's params.
+
+            Returns
+            -------
+            list
+                A list of dictionaries corresponding to each answer of the C-find. Empty if no answer found.
+        """
+        return self.orthanc.get_query_answer_number_of_results(query_identifier, params)
+
+    def get_content_of_specified_query_answer(
+            self, query_identifier: str,
+            index: str,
+            params: Dict = None,
+            **kwargs):
+        """Get content of specified answer of C-Find
+
+        Parameters
+        ----------
+        query_identifier
+            Query identifier.
+        index
+            Index of wanted answer.
+        params
+            GET HTTP request's params.
+
+        Returns
+        -------
+        Any
+            Specified answer of C-Find SCU operation.
+        """
+        return self.orthanc.get_content_of_specified_query_answer(query_identifier, index, params)

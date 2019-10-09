@@ -3008,6 +3008,29 @@ class Orthanc:
             **kwargs
         )
 
+    def get_query_answer_number_of_results(self, query_identifier: str,
+            params: Dict = None,
+            **kwargs) -> list:
+
+        """Get all content of specified answer of C-Find
+
+            Parameters
+            ----------
+            query_identifier
+                Query identifier.
+            params
+                GET HTTP request's params.
+
+            Returns
+            -------
+            list
+                A list of indexes numbers in string corresponding to each result.
+        """
+        return self.get_request(f'{self._orthanc_url}/queries/{query_identifier}/answers',
+            params=params,
+            **kwargs)
+
+
     def get_content_of_specified_query_answer(
             self, query_identifier: str,
             index: str,
