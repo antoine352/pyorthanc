@@ -919,10 +919,17 @@ class Orthanc:
         >>> o = Orthanc('http://localhost:8080')
         >>> o.get_instance_content_by_group_element('0040-a730/6/0040-a730/0/0040-a160')
         """
-        return self.get_request(
+        answer = self.get_request(
             f'{self._orthanc_url}/instances/{instance_identifier}/content/{group_element}',
             **kwargs
         )
+        if type(answer) == bytes:
+            # If answer is a string
+            return answer.decode("uft-8")
+
+        else:
+            # If the answer is a int
+            return answer
 
     def export_instance_to_filesystem(
             self, instance_identifier: str,
@@ -2981,13 +2988,13 @@ class Orthanc:
 
         return False if False in queries_have_been_deleted else True
 
-    def get_query_answers(
+    def get_query_answer_number_of_results(
             self, query_identifier: str,
             params: Dict = None,
             **kwargs) -> Any:
         """Get query answers
 
-        List all the answers for this C-Find SCU request
+        List all the indexes of each answer for this C-Find SCU request
          ("?expand" to show content, "&simplify" to simplify output)
 
         Parameters
@@ -3000,36 +3007,13 @@ class Orthanc:
         Returns
         -------
         Any
-            List all the answers for the specified query.
+            List all the indexes corresponding to each answers for the specified query.
         """
         return self.get_request(
             f'{self._orthanc_url}/queries/{query_identifier}/answers',
             params=params,
             **kwargs
         )
-
-    def get_query_answer_number_of_results(self, query_identifier: str,
-            params: Dict = None,
-            **kwargs) -> list:
-
-        """Get all content of specified answer of C-Find
-
-            Parameters
-            ----------
-            query_identifier
-                Query identifier.
-            params
-                GET HTTP request's params.
-
-            Returns
-            -------
-            list
-                A list of indexes numbers in string corresponding to each result.
-        """
-        return self.get_request(f'{self._orthanc_url}/queries/{query_identifier}/answers',
-            params=params,
-            **kwargs)
-
 
     def get_content_of_specified_query_answer(
             self, query_identifier: str,
